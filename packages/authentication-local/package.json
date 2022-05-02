@@ -52,15 +52,15 @@
     "access": "public"
   },
   "dependencies": {
-    "@feathersjs/authentication": "^5.0.0-pre.10",
-    "@feathersjs/commons": "^5.0.0-pre.10",
-    "@feathersjs/errors": "^5.0.0-pre.10",
-    "@feathersjs/feathers": "^5.0.0-pre.10",
+    "@feathersjs/authentication": "5.0.0-pre.10",
+    "@feathersjs/commons": "5.0.0-pre.10",
+    "@feathersjs/errors": "5.0.0-pre.10",
+    "@feathersjs/feathers": "5.0.0-pre.10",
     "bcryptjs": "^2.4.3",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@feathersjs/memory": "^5.0.0-pre.10",
+    "@feathersjs/memory": "5.0.0-pre.10",
     "@types/bcryptjs": "^2.4.2",
     "@types/lodash": "^4.14.173",
     "@types/mocha": "^9.0.0",

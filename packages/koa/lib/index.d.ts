@@ -1,0 +1,10 @@
+import Koa from 'koa';
+import bodyParser from 'koa-bodyparser';
+import { Application as FeathersApplication } from '@feathersjs/feathers';
+import { Application } from './declarations';
+import { errorHandler } from './error-handler';
+export * from './declarations';
+export * from './authenticate';
+export { rest } from './rest';
+export { Koa, bodyParser, errorHandler };
+export declare function koa(_app?: FeathersApplication): Application<any>;

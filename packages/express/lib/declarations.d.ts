@@ -1,0 +1,39 @@
+/// <reference types="node" />
+import http from 'http';
+import express, { Express } from 'express';
+import { Application as FeathersApplication, Params as FeathersParams, HookContext, ServiceMethods, ServiceInterface } from '@feathersjs/feathers';
+interface ExpressUseHandler<T, ServiceTypes> {
+    <L extends keyof ServiceTypes & string>(path: L, ...middlewareOrService: (Express | express.RequestHandler | (keyof any extends keyof ServiceTypes ? ServiceInterface<any> : ServiceTypes[L]))[]): T;
+    (path: string | RegExp, ...expressHandlers: express.RequestHandler[]): T;
+    (...expressHandlers: express.RequestHandler[]): T;
+    (handler: Express | express.ErrorRequestHandler): T;
+}
+export interface ExpressOverrides<ServiceTypes> {
+    listen(port: number, hostname: string, backlog: number, callback?: () => void): Promise<http.Server>;
+    listen(port: number, hostname: string, callback?: () => void): Promise<http.Server>;
+    listen(port: number | string | any, callback?: () => void): Promise<http.Server>;
+    listen(callback?: () => void): Promise<http.Server>;
+    use: ExpressUseHandler<this, ServiceTypes>;
+}
+export declare type Application<ServiceTypes = any, AppSettings = any> = Omit<Express, 'listen' | 'use'> & FeathersApplication<ServiceTypes, AppSettings> & ExpressOverrides<ServiceTypes>;
+declare module '@feathersjs/feathers/lib/declarations' {
+    interface ServiceOptions {
+        middleware?: {
+            before: express.RequestHandler[];
+            after: express.RequestHandler[];
+        };
+    }
+}
+declare module 'express-serve-static-core' {
+    interface Request {
+        feathers?: Partial<FeathersParams>;
+    }
+    interface Response {
+        data?: any;
+        hook?: HookContext;
+    }
+    interface IRouterMatcher<T> {
+        <P extends Params = ParamsDictionary, ResBody = any, ReqBody = any>(path: PathParams, ...handlers: (RequestHandler<P, ResBody, ReqBody> | Partial<ServiceMethods<any, any>> | Application)[]): T;
+    }
+}
+export {};
